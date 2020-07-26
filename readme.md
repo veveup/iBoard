@@ -23,5 +23,15 @@ http://veveup.com:81/iboard
  -[ ] 留言编辑修改删除
  -[ ] 点赞 评论系统
  
+ 
+ # QA
+ 1. 数据库安装正确 密码账号无误的情况下出现数据库连接问题可能的解决方法：
+ 找了一下资料可能是客户端不支持新的密码加密方法 导致无法连连接
+ ```mysql
+use mysql;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_password';
+flush priviliges;
+```
+重启tomcat
 
 
