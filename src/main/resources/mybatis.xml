@@ -3,23 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!--    配置环境-->
-    <environments default="mysql">
-        <environment id="mysql">
-            <transactionManager type="JDBC"></transactionManager>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql:///ssm"/>
-                <property name="username" value="root"/>
-                <property name="password" value="12345678"/>
-            </dataSource>
-        </environment>
-    </environments>
+    <!--    配置环境-->
+    <!--    <environments default="mysql">-->
+    <!--        <environment id="mysql">-->
+    <!--            <transactionManager type="JDBC"></transactionManager>-->
+    <!--            <dataSource type="POOLED">-->
+    <!--                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+    <!--                <property name="url" value="jdbc:mysql:///ssm"/>-->
+    <!--                <property name="username" value="root"/>-->
+    <!--                <property name="password" value="12345678"/>-->
+    <!--            </dataSource>-->
+    <!--        </environment>-->
+    <!--    </environments>-->
 
-<!--    引入映射配置文件-->
+    <!--    引入映射配置文件-->
     <mappers>
         <mapper resource="com/veveup/dao/AccountDao.xml"></mapper>
-<!--        <mapper class="com.veveup.dao.AccountDao"></mapper>-->
-<!--        <package name="com.veveup.dao"/>-->
+        <!--        <mapper class="com.veveup.dao.AccountDao"></mapper>-->
+        <!--        <package name="com.veveup.dao"/>-->
     </mappers>
 </configuration>
