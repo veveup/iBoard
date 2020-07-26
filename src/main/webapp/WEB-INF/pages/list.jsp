@@ -80,9 +80,11 @@
                 <div class="card-content">
                     <div class="content">
                             <%--                                <strong>${account.author}</strong><br>--%>
-                        <p class="title"> ${list[index-sta.index].content}</p>
+                            <%--                        <p class="title"> ${list[index-sta.index].content}</p>--%>
+                        <p class="title"> ${list[sta.index].content}</p>
                         <div class="container" align="right">
-                            <p class="subtitle ">${list[index-sta.index].author}</p>
+                                <%--                            <p class="subtitle ">${list[index-sta.index].author}</p>--%>
+                            <p class="subtitle ">${list[sta.index].author}</p>
                         </div>
                     </div>
                 </div>
