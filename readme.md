@@ -11,12 +11,12 @@ http://veveup.com:81/iboard
 
 框架：Spring SpringMVC MyBatis
 
-默认数据库：MySql/ssm
+支持数据库：Sqlite/Mysql
 
 测试服务器：Tomcat9.0.4
 
 
-![img](./img/demo1.png)
+![img](./img/demo2.png)
 
 # To-do
  - [ ] 用户系统
@@ -32,6 +32,7 @@ use mysql;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new_password';
 flush priviliges;
 ```
-重启tomcat
 
 
+# Log
+ 2020.07.27 增加sqlite数据库支持 增加时间戳
