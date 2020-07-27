@@ -9,13 +9,13 @@ import java.util.List;
 
 @Repository
 public interface MessageDao {
-    @Select("select * from message order by date desc")
-    Message findMessageById(Integer id);
+//    @Select("select * from message order by date desc")
+//    Message findMessageById(Integer id);
 
-    @Select("Select * from message order by date desc")
+    //    @Select("Select * from message order by date desc")
     List<Message> findAll();
 
-    @Insert("insert into message(author,content,date) values(#{author},#{content},#{date})")
+    //    @Insert("insert into message(author,content,date) values(#{author},#{content},#{date})")
     void InsertMessage(Message message);
 
 }

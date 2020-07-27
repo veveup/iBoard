@@ -7,20 +7,108 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Title</title>
-    <%@include file="base.jsp"%>
+    <%@include file="base.jsp" %>
 </head>
 <body>
 
-<h3> 执行成功 </h3>
 
-${list}
+<div class="container">
+    <form action="${pageContext.request.contextPath}/message/save" method="post">
+        <%--    <input type="text" name="content">--%>
+        <div class="field">
+            <label class="label">留言内容</label>
+            <div class="control">
+                <textarea class="textarea" name="content" placeholder="Please leave your please!"></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">昵称</label>
+            <div class="control">
+                <input class="input" type="text" name="author">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-link is-light" type="submit" value="Submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-<c:forEach items="${messages}" var="m">
-    ${m.content}:${m.author}<br>
-</c:forEach>
+
+<c:set var="index" value="${fn:length(list)-1}"></c:set>
+
+
+<div class="container">
+    <%--    <div class="columns ">--%>
+
+
+    <%--            <c:forEach items="${list}" var="account" varStatus="sta">--%>
+    <%--                <div class="column is-full">--%>
+    <%--                <div class="card">--%>
+    <%--&lt;%&ndash;                    <header class="card-header ">&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                        <p class="card-header-title">${account.author}</p>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                    </header>&ndash;%&gt;--%>
+
+
+    <%--                    <div class="card-content">--%>
+    <%--                        <div class="content">--%>
+    <%--&lt;%&ndash;                                <strong>${account.author}</strong><br>&ndash;%&gt;--%>
+    <%--                              <p class="title"> "${account.content}"</p>--%>
+    <%--    <div class="container" align="right">--%>
+    <%--        <p class="subtitle ">${account.author}</p>--%>
+    <%--    </div>--%>
+
+    <%--                        </div>--%>
+    <%--                    </div>--%>
+    <%--                </div>--%>
+    <%--&lt;%&ndash;                <br>&ndash;%&gt;--%>
+    <%--&lt;%&ndash;                <br>&ndash;%&gt;--%>
+    <%--                </div>--%>
+    <%--&lt;%&ndash;                ${account.content}:${account.author}<br>&ndash;%&gt;--%>
+    <%--            </c:forEach>--%>
+    <c:forEach items="${list}" var="account" varStatus="sta">
+        <div class="column is-full">
+            <div class="card">
+                    <%--                    <header class="card-header ">--%>
+                    <%--                        <p class="card-header-title">${account.author}</p>--%>
+                    <%--                    </header>--%>
+                <div class="card-content">
+                    <div class="content">
+                            <%--                                <strong>${account.author}</strong><br>--%>
+                            <%--                        <p class="title"> ${list[index-sta.index].content}</p>--%>
+                        <p class="title"> ${list[sta.index].content}</p>
+                        <div>
+
+                            <div class="container">
+
+                                <div class=" " style="float: left;" align="left">${list[sta.index].date}</div>
+                                    <%--                            <p class="subtitle ">${list[index-sta.index].author}</p>--%>
+                                <strong style="float: right;" align="right">${list[sta.index].author}</strong>
+                                    <%--                            <p class="subtitle ">${list[index-sta.index].author}</p>--%>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+                <%--                <br>--%>
+                <%--                <br>--%>
+        </div>
+        <%--                ${account.content}:${account.author}<br>--%>
+    </c:forEach>
+
+
+    <%--    </div>--%>
+
+
+</div>
+
 
 </body>
 </html>

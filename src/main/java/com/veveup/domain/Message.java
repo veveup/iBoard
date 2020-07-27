@@ -7,7 +7,7 @@ public class Message implements Serializable {
     private Integer id;
     private String author;
     private String content;
-    private Date date;
+    private String date;
 
     public Integer getId() {
         return id;
@@ -33,11 +33,11 @@ public class Message implements Serializable {
         this.content = content;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
