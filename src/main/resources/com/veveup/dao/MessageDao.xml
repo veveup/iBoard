@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.veveup.dao.MessageDao">
+    <select id="findAll" resultType="com.veveup.domain.Message">
+        select * from message
+    </select>
+
+    <insert id="InsertMessage" parameterType="com.veveup.domain.Message">
+        insert into message(content,author,date) values(#{content},#{author},DateTime('now','localtime'))
+    </insert>
+
+</mapper>
