@@ -6,7 +6,7 @@
 
 Demo
 http://veveup.com:81/iboard
-http://112.74.183.207/iboard
+http://112.74.183.207:81/iboard
 因为服务器内存有限 再运行一个MySql Server后内存不足 所以更换成Sqlite
 
 前端：Html+Bulma.io
