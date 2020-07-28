@@ -2,26 +2,26 @@
 
 基于 SSM 框架的留言板 功能非常简单
 
-是在学习了SSM这门课的结课作业
+是在学习了SSM这门课的结课作业(已经结课)
 
 Demo
-http://veveup.com:81/iboard
-http://112.74.183.207:81/iboard
++ http://veveup.com:81/iboard/message/getAll
++ http://112.74.183.207:81/iboard/message/getAll
 因为服务器内存有限 再运行一个MySql Server后内存不足 所以更换成Sqlite
 
 前端：Html+Bulma.io
-
 框架：Spring SpringMVC MyBatis
-
 支持数据库：Sqlite/Mysql
-
 测试服务器：Tomcat9.0.4
 
 
-![img](./img/demo2.png)
+![img](./img/demo5.png)
+![img](./img/demo4.png)
 
 # To-do
- - [ ] 用户系统
+ - [x] 用户系统
+    - [ ] 安全优化
+    - [ ] 权限管理
  - [ ] 留言编辑修改删除
  - [ ] 点赞 评论系统
  
@@ -37,4 +37,5 @@ flush priviliges;
 
 
 # Log
- 2020.07.27 增加sqlite数据库支持 增加时间戳
++ **2020.07.27** 增加sqlite数据库支持 增加时间戳
++ **2020.07.28** 仅仅新增用户系统 还没有合并入主要功能

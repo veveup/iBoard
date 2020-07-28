@@ -10,10 +10,9 @@
 <html>
 <head>
     <%@include file="base.jsp" %>
-    <title>Success</title>
+    <title>Error</title>
 </head>
 <body>
-
 <c:set var="direct" value="${pageContext.request.contextPath}/message/getAll"></c:set>
 <c:if test="${sessionScope.directAfterDone!=null}">
     <c:set var="direct" value="${sessionScope.directAfterDone}"></c:set>
@@ -42,10 +41,5 @@
     <!-- Hero footer: will stick at the bottom -->
     <!--    <div class="hero-foot">-->
 </section>
-
-
-<%--<h1>执行成功</h1>--%>
-<%--<h1 align="center">${msg}</h1>--%>
-<%--<h5>即将自动跳转到之前的页面或<a href="${direct}">立即跳转</a></h5>--%>
 </body>
 </html>

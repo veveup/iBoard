@@ -14,20 +14,21 @@
     <%@include file="base.jsp" %>
 </head>
 <body>
+<%@include file="navbar.jsp" %>
 
-
-<div class="container">
-    <form action="${pageContext.request.contextPath}/message/save" method="post">
-        <%--    <input type="text" name="content">--%>
-        <div class="field">
-            <label class="label">留言内容</label>
-            <div class="control">
-                <textarea class="textarea" name="content" placeholder="Please leave your please!"></textarea>
+<div class="container is-fluid">
+    <div class="container">
+        <form action="${pageContext.request.contextPath}/message/save" method="post">
+            <%--    <input type="text" name="content">--%>
+            <div class="field">
+                <label class="label">留言内容</label>
+                <div class="control">
+                    <textarea class="textarea" name="content" placeholder="Please leave your please!"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="field">
-            <label class="label">昵称</label>
-            <div class="control">
+            <div class="field">
+                <label class="label">昵称</label>
+                <div class="control">
                 <input class="input" type="text" name="author">
             </div>
         </div>
@@ -107,6 +108,7 @@
     <%--    </div>--%>
 
 
+</div>
 </div>
 
 

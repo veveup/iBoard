@@ -31,6 +31,7 @@
         <mapper resource="com/veveup/dao/MessageDao.xml"></mapper>
         <!--        <mapper class="com.veveup.dao.AccountDao"></mapper>-->
         <!--        <package name="com.veveup.dao"/>-->
+        <mapper resource="com/veveup/dao/UserDao.xml"></mapper>
     </mappers>
 
 </configuration>
