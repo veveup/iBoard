@@ -8,6 +8,8 @@ public class Message implements Serializable {
     private String author;
     private String content;
     private String date;
+    private Integer ishidden;
+
 
     public Integer getId() {
         return id;
@@ -41,13 +43,22 @@ public class Message implements Serializable {
         this.date = date;
     }
 
+    public Integer getIshidden() {
+        return ishidden;
+    }
+
+    public void setIshidden(Integer ishidden) {
+        this.ishidden = ishidden;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
                 "id=" + id +
                 ", author='" + author + '\'' +
                 ", content='" + content + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
+                ", ishidden=" + ishidden +
                 '}';
     }
 }

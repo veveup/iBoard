@@ -7,6 +7,10 @@ import java.util.List;
 public interface MessageServiceDao {
     List<Message> findAll();
 
+    List<Message> findAllVisiable();
+
     void insertMessage(Message message);
+
+    void setHiddenById(Integer id);
 
 }

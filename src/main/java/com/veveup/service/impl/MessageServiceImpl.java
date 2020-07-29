@@ -18,8 +18,17 @@ public class MessageServiceImpl implements MessageServiceDao {
     }
 
     @Override
+    public List<Message> findAllVisiable() {
+        return messageDao.findAllVisiable();
+    }
+
+    @Override
     public void insertMessage(Message message) {
         messageDao.InsertMessage(message);
+    }
 
+    @Override
+    public void setHiddenById(Integer id) {
+        messageDao.setHiddenById(id);
     }
 }

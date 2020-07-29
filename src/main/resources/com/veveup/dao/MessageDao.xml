@@ -7,8 +7,16 @@
         select * from message
     </select>
 
+    <select id="findAllVisiable" resultType="com.veveup.domain.Message">
+        select * from message where ishidden is null or ishidden = 0
+    </select>
+
     <insert id="InsertMessage" parameterType="com.veveup.domain.Message">
         insert into message(content,author,date) values(#{content},#{author},DateTime('now','localtime'))
     </insert>
+
+    <update id="setHiddenById" parameterType="java.lang.Integer">
+        update message set ishidden=1 where id = #{id}
+    </update>
 
 </mapper>

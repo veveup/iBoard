@@ -24,7 +24,8 @@ public class MessageController {
     @RequestMapping("/getAll")
     public String  getAll(Model model) {
         System.out.println("message/getAll run");
-        List<Message> all = messageDao.findAll();
+        // 获得所有可见的留言信息
+        List<Message> all = messageDao.findAllVisiable();
         Collections.reverse(all);
         for (Message m :
                 all) {
@@ -58,4 +59,15 @@ public class MessageController {
         response.sendRedirect(request.getContextPath() + "/message/getAll");
         return;
     }
+
+    @RequestMapping("/deleteById")
+    public String deleteById(Integer id, Model model) {
+        // 判断是否有删除权限 自己发的留言 管理员 均可删除 但是游客没有权限
+
+        messageDao.setHiddenById(id);
+        model.addAttribute("msg", "删除留言成功！");
+        return "success";
+    }
+
+
 }

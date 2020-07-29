@@ -15,7 +15,12 @@ public interface MessageDao {
     //    @Select("Select * from message order by date desc")
     List<Message> findAll();
 
+    List<Message> findAllVisiable();
+
     //    @Insert("insert into message(author,content,date) values(#{author},#{content},#{date})")
     void InsertMessage(Message message);
+
+    void setHiddenById(Integer id);
+
 
 }

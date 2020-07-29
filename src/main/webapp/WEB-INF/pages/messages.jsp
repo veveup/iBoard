@@ -75,6 +75,11 @@
     <c:forEach items="${list}" var="account" varStatus="sta">
         <div class="column is-full">
             <div class="card">
+
+                <div class="fluid" style="float: right;margin: 1em;">
+                    <a class="delete"
+                       href="${pageContext.request.contextPath}/message/deleteById?id=${list[sta.index].id}"></a>
+                </div>
                     <%--                    <header class="card-header ">--%>
                     <%--                        <p class="card-header-title">${account.author}</p>--%>
                     <%--                    </header>--%>
