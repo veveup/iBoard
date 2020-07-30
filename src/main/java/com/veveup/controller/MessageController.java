@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -63,10 +65,27 @@ public class MessageController {
     @RequestMapping("/deleteById")
     public String deleteById(Integer id, Model model) {
         // 判断是否有删除权限 自己发的留言 管理员 均可删除 但是游客没有权限
+        if (true) {
+            model.addAttribute("msg", "没有删除权限！");
+            return "error";
+        }
 
         messageDao.setHiddenById(id);
         model.addAttribute("msg", "删除留言成功！");
         return "success";
+    }
+
+    @RequestMapping("/likes")
+    public @ResponseBody
+    Object likes(Integer id, HttpServletResponse response) {
+        // 判断用户是否有点赞权
+        System.out.println("message/likes run");
+        messageDao.addLikesById(id);
+        HashMap map = new HashMap();
+        map.put("status", "ok");
+        map.put("msg", "success");
+        response.setStatus(200);
+        return map;
     }
 
 

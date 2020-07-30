@@ -14,6 +14,13 @@
     <%@include file="base.jsp" %>
 </head>
 <body>
+
+<script>
+    function likes() {
+
+    }
+</script>
+
 <%@include file="navbar.jsp" %>
 
 <div class="container is-fluid">
@@ -38,6 +45,7 @@
             </div>
         </div>
     </form>
+    </div>
 </div>
 
 
@@ -88,34 +96,45 @@
                             <%--                                <strong>${account.author}</strong><br>--%>
                             <%--                        <p class="title"> ${list[index-sta.index].content}</p>--%>
                         <p class="title"> ${list[sta.index].content}</p>
-                        <div>
 
-                            <div class="container">
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <div class="level-item has-text-centered">
+                                          <span style="margin-right: 10px" onclick="likesClick(this)">
+                                         <img src="${pageContext.request.contextPath}/img/favorite_border-24px.svg"
+                                              onmouseover="hover(this)" onmouseout="unhover(this)" class="myfloat">
 
-                                <div class=" " style="float: left;" align="left">${list[sta.index].date}</div>
-                                    <%--                            <p class="subtitle ">${list[index-sta.index].author}</p>--%>
-                                <strong style="float: right;" align="right">${list[sta.index].author}</strong>
-                                    <%--                            <p class="subtitle ">${list[index-sta.index].author}</p>--%>
-                                <div style="clear: both;"></div>
+                                        <div class='myfloat  <c:if test="${list[sta.index].likes==0}">is-hidden </c:if>'>${list[sta.index].likes}</div>
+
+                                    </span>
+                                        <%--                                        <span>--%>
+                                        <%--                                         <img src="${pageContext.request.contextPath}/img/chat_bubble_outline-black-24dp.svg" class="myfloat">--%>
+                                        <%--                                            <div class="myfloat">5</div>--%>
+                                        <%--                                        </span>--%>
+                                </div>
+                                <div class="level-item has-text-centered" style="margin-left: 1em">
+                                    <div class="myfloat" align="left">${list[sta.index].date}</div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="level-right">
+                                <div class="level-item has-text-centered">
+                                    <strong style="float: right;" align="right">${list[sta.index].author}</strong>
+                                </div>
+                            </div>
+                        </nav>
+
 
                     </div>
                 </div>
+                    <%--                <br>--%>
+                    <%--                <br>--%>
             </div>
-                <%--                <br>--%>
-                <%--                <br>--%>
+                <%--                ${account.content}:${account.author}<br>--%>
+
         </div>
-        <%--                ${account.content}:${account.author}<br>--%>
     </c:forEach>
 
-
-    <%--    </div>--%>
-
-
 </div>
-</div>
-
 
 </body>
 </html>

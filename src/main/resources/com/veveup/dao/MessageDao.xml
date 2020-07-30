@@ -19,4 +19,12 @@
         update message set ishidden=1 where id = #{id}
     </update>
 
+    <update id="addLikesById" parameterType="java.lang.Integer">
+        update message set likes = likes + 1 where id=#{id}
+    </update>
+
+    <update id="minusLikesById" parameterType="java.lang.Integer">
+        update message set likes = likes - 1 where id=#{id} and likes>0
+    </update>
+
 </mapper>

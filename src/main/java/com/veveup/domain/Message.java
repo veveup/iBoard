@@ -9,6 +9,7 @@ public class Message implements Serializable {
     private String content;
     private String date;
     private Integer ishidden;
+    private Integer likes;
 
 
     public Integer getId() {
@@ -51,6 +52,14 @@ public class Message implements Serializable {
         this.ishidden = ishidden;
     }
 
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -59,6 +68,7 @@ public class Message implements Serializable {
                 ", content='" + content + '\'' +
                 ", date='" + date + '\'' +
                 ", ishidden=" + ishidden +
+                ", likes=" + likes +
                 '}';
     }
 }

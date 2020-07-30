@@ -13,4 +13,8 @@ public interface MessageServiceDao {
 
     void setHiddenById(Integer id);
 
+    void addLikes(Integer id);
+
+    void miuisLikes(Integer id);
+
 }

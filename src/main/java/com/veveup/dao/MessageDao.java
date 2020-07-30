@@ -22,5 +22,9 @@ public interface MessageDao {
 
     void setHiddenById(Integer id);
 
+    void addLikesById(Integer id);
+
+    void minusLikesById(Integer id);
+
 
 }

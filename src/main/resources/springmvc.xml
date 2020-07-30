@@ -22,9 +22,10 @@ http://www.springframework.org/schema/context/spring-context.xsd http://www.spri
     </bean>
 
     <!--    过滤静态资源-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
     <mvc:resources mapping="/static/**" location="/static/"></mvc:resources>
     <mvc:resources mapping="/css/**" location="/css/"></mvc:resources>
-    <mvc:resources mapping="/images/**" location="/images/"></mvc:resources>
+    <mvc:resources mapping="/img/**" location="/img/"></mvc:resources>
     <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
 
     <!--    开启SpringMVC注解的支持-->

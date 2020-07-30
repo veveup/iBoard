@@ -23,7 +23,7 @@
     setTimeout("javascript:location.href='${direct}'", 3000);
 </script>
 
-<section class="hero is-success is-fullheight">
+<section class="hero is-danger is-fullheight">
     <!--    &lt;!&ndash; Hero head: will stick at the top &ndash;&gt;-->
     <!--    <div class="hero-head">-->
 

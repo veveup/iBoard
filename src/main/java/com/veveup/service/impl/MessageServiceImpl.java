@@ -31,4 +31,14 @@ public class MessageServiceImpl implements MessageServiceDao {
     public void setHiddenById(Integer id) {
         messageDao.setHiddenById(id);
     }
+
+    @Override
+    public void addLikes(Integer id) {
+        messageDao.addLikesById(id);
+    }
+
+    @Override
+    public void miuisLikes(Integer id) {
+        messageDao.minusLikesById(id);
+    }
 }
