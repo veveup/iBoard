@@ -100,7 +100,8 @@
                         <nav class="level is-mobile">
                             <div class="level-left">
                                 <div class="level-item has-text-centered">
-                                          <span style="margin-right: 10px" onclick="likesClick(this)">
+                                          <span style="margin-right: 10px" onclick="likesClick(this)"
+                                                id="${list[sta.index].id}">
                                          <img src="${pageContext.request.contextPath}/img/favorite_border-24px.svg"
                                               onmouseover="hover(this)" onmouseout="unhover(this)" class="myfloat">
 

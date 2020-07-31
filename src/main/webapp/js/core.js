@@ -21,5 +21,17 @@ function likesClick(element) {
     aa.setAttribute("class", classVal);
     element.removeAttribute("onclick")
     a[0].removeAttribute("onmouseout");
+    var id = element.getAttribute("id");
+    $.ajax({
+        url: projectName + '/message/likes?id=' + id,
+        success: function (result) {
+            // 判断是否失败 若失败 则在前端提示
+            console.log(result);
+        },
+        timeout: function (result) {
+            // 失败 将前端恢复到之前状态
+        }
+    });
+
 
 }
