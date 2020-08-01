@@ -26,5 +26,7 @@ public interface MessageDao {
 
     void minusLikesById(Integer id);
 
+    Message findMessageById(Integer id);
+
 
 }

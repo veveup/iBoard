@@ -2,11 +2,14 @@ package com.veveup.controller;
 
 import com.veveup.dao.MessageDao;
 import com.veveup.domain.Message;
+import com.veveup.domain.User;
 import com.veveup.utils.DateConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +27,24 @@ public class MessageController {
     private MessageDao messageDao;
 
     @RequestMapping("/getAll")
-    public String  getAll(Model model) {
+    public String getAll(Model model, HttpServletRequest request) {
         System.out.println("message/getAll run");
-        // 获得所有可见的留言信息
-        List<Message> all = messageDao.findAllVisiable();
+        List<Message> all = null;
+        Object user = request.getSession().getAttribute("user");
+        if (user instanceof User) {
+            if (((User) user).getLevel().equals(User.Admin)) {
+                // 管理员 可见所有留言 包括被隐藏的（删除的、审核中的）
+                all = messageDao.findAll();
+            } else {
+                // 获得所有可见的留言信息
+                all = messageDao.findAllVisiable();
+            }
+        } else {
+            all = messageDao.findAllVisiable();
+        }
+        // 反转 根据时间顺序显示
         Collections.reverse(all);
+        // 格式化时间 显示为友好的方式
         for (Message m :
                 all) {
 //            System.out.println("Date:"+m.getDate());
@@ -52,24 +68,62 @@ public class MessageController {
     @RequestMapping("/save")
     public void saveMessage(String author, String content, HttpServletResponse response, HttpServletRequest request) throws IOException {
         System.out.println("message/save run");
+        // 判断是否由发言权限 存在频繁操作 等不正常的行为
+
         Message message1 = new Message();
         message1.setAuthor(author);
         message1.setContent(content);
-//        message1.setDate(new Date().toString());
+
+        Object user = request.getSession().getAttribute("user");
+        if (user instanceof User) {
+            message1.setAuthorId(((User) user).getUid());
+        }
         messageDao.InsertMessage(message1);
         System.out.println("message/save Dao done");
         response.sendRedirect(request.getContextPath() + "/message/getAll");
         return;
     }
 
+    // 以post方式 将json格式message 保存 用于Ajax异步请求
+    @RequestMapping(value = "/saveAjax", method = {RequestMethod.POST})
+    public @ResponseBody
+    Object saveMessagePost(@RequestBody Message message, HttpServletRequest request) {
+        System.out.println("message/save.Ajax run");
+        // 判断是否由权限
+        Object user = request.getSession().getAttribute("user");
+        if (user instanceof User) {
+            message.setAuthorId(((User) user).getUid());
+        }
+        messageDao.InsertMessage(message);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("status", "ok");
+        map.put("msg", "添加完成");
+        map.put("time", String.valueOf(new Date().getTime()));
+        return map;
+    }
+
     @RequestMapping("/deleteById")
-    public String deleteById(Integer id, Model model) {
+    public String deleteById(Integer id, Model model, HttpServletRequest request) {
         // 判断是否有删除权限 自己发的留言 管理员 均可删除 但是游客没有权限
+        Object user = request.getSession().getAttribute("user");
+        if (user instanceof User) {
+            // 管理员 直接允许
+            if (((User) user).getLevel().equals(User.Admin)) {
+                messageDao.setHiddenById(id);
+            } else {
+                Message messageById = messageDao.findMessageById(id);
+                Integer aid = messageById.getAuthorId();
+                if (aid instanceof Integer && aid.equals(((User) user).getUid())) {
+                    messageDao.setHiddenById(id);
+                    model.addAttribute("msg", "删除成功！");
+                    return "success";
+                }
+            }
+        }
         if (true) {
-            model.addAttribute("msg", "没有删除权限！");
+            model.addAttribute("msg", "没有删除权限/只允许删除自己的留言！");
             return "error";
         }
-
         messageDao.setHiddenById(id);
         model.addAttribute("msg", "删除留言成功！");
         return "success";

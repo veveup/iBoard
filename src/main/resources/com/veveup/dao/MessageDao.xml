@@ -12,7 +12,7 @@
     </select>
 
     <insert id="InsertMessage" parameterType="com.veveup.domain.Message">
-        insert into message(content,author,date) values(#{content},#{author},DateTime('now','localtime'))
+        insert into message(content,author,date,authorId) values(#{content},#{author},DateTime('now','localtime'),#{authorId})
     </insert>
 
     <update id="setHiddenById" parameterType="java.lang.Integer">
@@ -26,5 +26,9 @@
     <update id="minusLikesById" parameterType="java.lang.Integer">
         update message set likes = likes - 1 where id=#{id} and likes>0
     </update>
+
+    <select id="findMessageById" parameterType="java.lang.Integer" resultType="com.veveup.domain.Message">
+        select * from message where id = #{id}
+    </select>
 
 </mapper>

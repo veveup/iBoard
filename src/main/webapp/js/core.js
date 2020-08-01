@@ -32,6 +32,40 @@ function likesClick(element) {
             // 失败 将前端恢复到之前状态
         }
     });
-
-
 }
+
+
+// 请求行为 Ajax
+function submitAjax() {
+    // $("#ajaxCard").show(1000);
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        url: projectName + '/message/saveAjax',
+        data: JSON.stringify({
+            content: $('textarea[name="content"]').val(),
+            author: $('input[name="author"]').val(),
+        }),
+        success: function (result) {
+            console.log(result);
+
+            // 从服务器再拿到 id 号 用于删除和点赞行为行为
+            $("#ajaxConten").text($('textarea[name="content"]').val());
+            $("#ajaxAuthor").text($('input[name="author"]').val());
+            $("#ajaxDate").text('1秒前');
+            $("#ajaxCard").show(1000);
+
+        },
+        error: function (result) {
+            console.log("submitAjax 出现错误");
+            console.log(result);
+        }
+    });
+    return false;
+}
+
+// 页面加载完成 将AjaxCard隐藏 当请求成功的时候再显示出来
+$(document).ready(function () {
+    $("#ajaxCard").hide();
+})

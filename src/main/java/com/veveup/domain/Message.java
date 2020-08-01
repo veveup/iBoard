@@ -10,7 +10,15 @@ public class Message implements Serializable {
     private String date;
     private Integer ishidden;
     private Integer likes;
+    private Integer authorId;
 
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
 
     public Integer getId() {
         return id;
@@ -69,6 +77,7 @@ public class Message implements Serializable {
                 ", date='" + date + '\'' +
                 ", ishidden=" + ishidden +
                 ", likes=" + likes +
+                ", authorId=" + authorId +
                 '}';
     }
 }

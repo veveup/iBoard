@@ -10,7 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>iBoard</title>
     <%@include file="base.jsp" %>
 </head>
 <body>
@@ -25,7 +25,8 @@
 
 <div class="container is-fluid">
     <div class="container">
-        <form action="${pageContext.request.contextPath}/message/save" method="post">
+        <%--        <form action="${pageContext.request.contextPath}/message/save" method="post" id="submitform">--%>
+        <form action="" method="post" id="submitform" onsubmit="return false">
             <%--    <input type="text" name="content">--%>
             <div class="field">
                 <label class="label">留言内容</label>
@@ -36,15 +37,16 @@
             <div class="field">
                 <label class="label">昵称</label>
                 <div class="control">
-                <input class="input" type="text" name="author">
+                    <input class="input" type="text" name="author">
+                </div>
             </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <button class="button is-link is-light" type="submit" value="Submit">Submit</button>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link is-light" type="submit" onclick="submitAjax()" value="Submit">Submit
+                    </button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
     </div>
 </div>
 
@@ -53,6 +55,41 @@
 
 
 <div class="container">
+
+
+    <%-- Ajax请求完成 显示   --%>
+    <div class="column is-full" id="ajaxCard">
+        <div class="card">
+            <div class="fluid" style="float: right;margin: 1em;">
+                <a class="delete" href="/iBoard_war/message/deleteById?id=0"></a>
+            </div>
+            <div class="card-content">
+                <div class="content">
+                    <p class="title" id="ajaxConten"> AjaxSubmit</p>
+                    <nav class="level is-mobile">
+                        <div class="level-left">
+                            <div class="level-item has-text-centered">
+                                          <span style="margin-right: 10px" onclick="likesClick(this)" id="0">
+                                         <img src="${pageContext.request.contextPath}/img/favorite_border-24px.svg"
+                                              onmouseover="hover(this)" onmouseout="unhover(this)" class="myfloat">
+                                        <div class="myfloat  is-hidden ">0</div>
+                                    </span>
+                            </div>
+                            <div class="level-item has-text-centered" style="margin-left: 1em">
+                                <div class="myfloat" align="left" id="ajaxDate">8秒前</div>
+                            </div>
+                        </div>
+                        <div class="level-right">
+                            <div class="level-item has-text-centered">
+                                <strong style="float: right;" align="right" id="ajaxAuthor">test</strong>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--Ajax请求显示 结束--%>
     <%--    <div class="columns ">--%>
 
 

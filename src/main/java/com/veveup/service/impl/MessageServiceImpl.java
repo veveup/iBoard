@@ -41,4 +41,9 @@ public class MessageServiceImpl implements MessageServiceDao {
     public void miuisLikes(Integer id) {
         messageDao.minusLikesById(id);
     }
+
+    @Override
+    public Message getMessageById(Integer id) {
+        return messageDao.findMessageById(id);
+    }
 }

@@ -44,6 +44,9 @@ public class UserController {
     @RequestMapping(value = "/saveUser", method = {RequestMethod.POST})
     public String saveUser(User user, Model model) {
 //        先判断user是否存在 若存在 则不允许注册
+
+        // 不允许传入 level 权限 所有权限改成普通用户
+        user.setLevel(User.User);
         userService.saveUser(user);
 
         model.addAttribute("msg", "恭喜注册成功");

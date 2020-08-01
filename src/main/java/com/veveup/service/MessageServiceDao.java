@@ -17,4 +17,6 @@ public interface MessageServiceDao {
 
     void miuisLikes(Integer id);
 
+    Message getMessageById(Integer id);
+
 }
