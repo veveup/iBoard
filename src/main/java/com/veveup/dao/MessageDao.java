@@ -20,6 +20,8 @@ public interface MessageDao {
     //    @Insert("insert into message(author,content,date) values(#{author},#{content},#{date})")
     void InsertMessage(Message message);
 
+    Integer InsertMessageAndReturnId(Message message);
+
     void setHiddenById(Integer id);
 
     void addLikesById(Integer id);

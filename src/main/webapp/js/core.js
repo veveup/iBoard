@@ -21,9 +21,9 @@ function likesClick(element) {
     aa.setAttribute("class", classVal);
     element.removeAttribute("onclick")
     a[0].removeAttribute("onmouseout");
-    var id = element.getAttribute("id");
+    var mid = element.getAttribute("mid");
     $.ajax({
-        url: projectName + '/message/likes?id=' + id,
+        url: projectName + '/message/likes?id=' + mid,
         success: function (result) {
             // 判断是否失败 若失败 则在前端提示
             console.log(result);
@@ -38,6 +38,7 @@ function likesClick(element) {
 // 请求行为 Ajax
 function submitAjax() {
     // $("#ajaxCard").show(1000);
+
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -50,12 +51,9 @@ function submitAjax() {
         success: function (result) {
             console.log(result);
 
-            // 从服务器再拿到 id 号 用于删除和点赞行为行为
-            $("#ajaxConten").text($('textarea[name="content"]').val());
-            $("#ajaxAuthor").text($('input[name="author"]').val());
-            $("#ajaxDate").text('1秒前');
-            $("#ajaxCard").show(1000);
+            var id = result.id;
 
+            submitSuccess(id);
         },
         error: function (result) {
             console.log("submitAjax 出现错误");
@@ -68,4 +66,41 @@ function submitAjax() {
 // 页面加载完成 将AjaxCard隐藏 当请求成功的时候再显示出来
 $(document).ready(function () {
     $("#ajaxCard").hide();
+
 })
+
+function testButton() {
+    var newCard = $('#ajaxCard').clone(true, true).attr('id', 'newCard');
+    console.log(newCard);
+    $('#mlist').prepend(newCard);
+    console.log(newCard);
+    newCard.show(1000);
+}
+
+function submitSuccess(id) {
+    var newCard = $('#ajaxCard').clone(true, true).attr('id', 'newCard');
+    console.log(newCard);
+    $('#mlist').prepend(newCard);
+    console.log(newCard);
+
+    // 设置值 并清除id
+
+    $("#newCard #ajaxConten").text($('textarea[name="content"]').val());
+    $("#newCard #ajaxAuthor").text($('input[name="author"]').val());
+    $("#newCard #ajaxDate").text('1秒前');
+    $('#newCard #ajaxConten').attr('id', '');
+    $('#newCard #ajaxAuthor').attr('id', '');
+    $('#newCard #ajaxDate').attr('id', '');
+    // 删除按钮的链接
+    $('#newCard .delete').attr('href', projectName + '/message/deleteById?id=' + id);
+    // 点赞按钮 所需的mid
+    $('#newCard span').attr('mid', id);
+
+
+    $("#newCard").show(1000);
+
+    // 提交请求后 清空表单
+    $('textarea[name="content"]').val("");
+    $('input[name="author"]').val("");
+
+}

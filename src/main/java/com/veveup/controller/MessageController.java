@@ -27,21 +27,23 @@ public class MessageController {
     private MessageDao messageDao;
 
     @RequestMapping("/getAll")
-    public String getAll(Model model, HttpServletRequest request) {
-        System.out.println("message/getAll run");
+    public String getAll(Model model, HttpServletRequest request, String al) {
+        System.out.println("message/getAll run and al=" + al);
         List<Message> all = null;
         Object user = request.getSession().getAttribute("user");
-        if (user instanceof User) {
-            if (((User) user).getLevel().equals(User.Admin)) {
-                // 管理员 可见所有留言 包括被隐藏的（删除的、审核中的）
-                all = messageDao.findAll();
-            } else {
-                // 获得所有可见的留言信息
-                all = messageDao.findAllVisiable();
+        if ("1".equals(al)) {
+            if (user instanceof User) {
+                if (((User) user).getLevel().equals(User.Admin)) {
+                    // 管理员 可见所有留言 包括被隐藏的（删除的、审核中的）
+                    all = messageDao.findAll();
+                }
             }
-        } else {
+        }
+        if (all == null) {
             all = messageDao.findAllVisiable();
         }
+
+        // 测试管理员 权限 不需要全部打开
         // 反转 根据时间顺序显示
         Collections.reverse(all);
         // 格式化时间 显示为友好的方式
@@ -94,10 +96,14 @@ public class MessageController {
         if (user instanceof User) {
             message.setAuthorId(((User) user).getUid());
         }
-        messageDao.InsertMessage(message);
+        messageDao.InsertMessageAndReturnId(message);
+        Integer id = message.getId();
+
+        System.out.println("保存后的message：" + message.toString());
         HashMap<String, String> map = new HashMap<>();
         map.put("status", "ok");
         map.put("msg", "添加完成");
+        map.put("id", String.valueOf(id));
         map.put("time", String.valueOf(new Date().getTime()));
         return map;
     }
@@ -110,6 +116,8 @@ public class MessageController {
             // 管理员 直接允许
             if (((User) user).getLevel().equals(User.Admin)) {
                 messageDao.setHiddenById(id);
+                model.addAttribute("msg", "使用管理员权限 隐藏留言成功");
+                return "success";
             } else {
                 Message messageById = messageDao.findMessageById(id);
                 Integer aid = messageById.getAuthorId();

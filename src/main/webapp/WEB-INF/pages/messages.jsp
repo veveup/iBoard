@@ -53,15 +53,16 @@
 
 <c:set var="index" value="${fn:length(list)-1}"></c:set>
 
+<%--<button onclick="testButton()">TestButton</button>--%>
 
-<div class="container">
+<div class="container" id="mlist">
 
 
     <%-- Ajax请求完成 显示   --%>
     <div class="column is-full" id="ajaxCard">
         <div class="card">
             <div class="fluid" style="float: right;margin: 1em;">
-                <a class="delete" href="/iBoard_war/message/deleteById?id=0"></a>
+                <a class="delete" href="${pageContext.request.contextPath}/message/deleteById?id=0"></a>
             </div>
             <div class="card-content">
                 <div class="content">
@@ -69,7 +70,7 @@
                     <nav class="level is-mobile">
                         <div class="level-left">
                             <div class="level-item has-text-centered">
-                                          <span style="margin-right: 10px" onclick="likesClick(this)" id="0">
+                                          <span style="margin-right: 10px" onclick="likesClick(this)">
                                          <img src="${pageContext.request.contextPath}/img/favorite_border-24px.svg"
                                               onmouseover="hover(this)" onmouseout="unhover(this)" class="myfloat">
                                         <div class="myfloat  is-hidden ">0</div>
@@ -138,7 +139,7 @@
                             <div class="level-left">
                                 <div class="level-item has-text-centered">
                                           <span style="margin-right: 10px" onclick="likesClick(this)"
-                                                id="${list[sta.index].id}">
+                                                mid="${list[sta.index].id}">
                                          <img src="${pageContext.request.contextPath}/img/favorite_border-24px.svg"
                                               onmouseover="hover(this)" onmouseout="unhover(this)" class="myfloat">
 

@@ -15,6 +15,11 @@
         insert into message(content,author,date,authorId) values(#{content},#{author},DateTime('now','localtime'),#{authorId})
     </insert>
 
+    <insert id="InsertMessageAndReturnId" parameterType="com.veveup.domain.Message" useGeneratedKeys="true"
+            keyColumn="id" keyProperty="id">
+        insert into message(content,author,date,authorId) values(#{content},#{author},DateTime('now','localtime'),#{authorId})
+    </insert>
+
     <update id="setHiddenById" parameterType="java.lang.Integer">
         update message set ishidden=1 where id = #{id}
     </update>
