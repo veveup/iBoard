@@ -137,6 +137,49 @@ public class MessageController {
         return "success";
     }
 
+    /**
+     * Ajax 方式请求删除 返回Jaon
+     *
+     * @param id
+     * @param request
+     * @return
+     */
+    @RequestMapping("/deleteByIdAjax")
+    public @ResponseBody
+    Object deleteByIdAjax(Integer id, HttpServletRequest request) {
+        // 判断是否有删除权限 自己发的留言 管理员 均可删除 但是游客没有权限
+        Object user = request.getSession().getAttribute("user");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("time", String.valueOf(new Date().getTime()));
+        if (user instanceof User) {
+            // 管理员 直接允许
+            if (((User) user).getLevel().equals(User.Admin)) {
+                messageDao.setHiddenById(id);
+                map.put("msg", "使用管理员权限 隐藏留言成功");
+                map.put("status", "success");
+                return map;
+            } else {
+                Message messageById = messageDao.findMessageById(id);
+                Integer aid = messageById.getAuthorId();
+                if (aid instanceof Integer && aid.equals(((User) user).getUid())) {
+                    messageDao.setHiddenById(id);
+                    map.put("msg", "删除成功！");
+                    map.put("status", "success");
+                    return map;
+                }
+            }
+        }
+        if (true) {
+            map.put("msg", "没有删除权限/只允许删除自己的留言！");
+            map.put("status", "error");
+            return map;
+        }
+        messageDao.setHiddenById(id);
+        map.put("msg", "删除留言成功！");
+        map.put("status", "success");
+        return map;
+    }
+
     @RequestMapping("/likes")
     public @ResponseBody
     Object likes(Integer id, HttpServletResponse response) {

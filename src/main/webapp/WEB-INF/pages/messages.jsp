@@ -62,7 +62,7 @@
     <div class="column is-full" id="ajaxCard">
         <div class="card">
             <div class="fluid" style="float: right;margin: 1em;">
-                <a class="delete" href="${pageContext.request.contextPath}/message/deleteById?id=0"></a>
+                <a class="delete" onclick="deleteAjax(this)"></a>
             </div>
             <div class="card-content">
                 <div class="content">
@@ -123,8 +123,9 @@
             <div class="card">
 
                 <div class="fluid" style="float: right;margin: 1em;">
-                    <a class="delete"
-                       href="${pageContext.request.contextPath}/message/deleteById?id=${list[sta.index].id}"></a>
+                        <%--                    <a class="delete"--%>
+                        <%--                       href="${pageContext.request.contextPath}/message/deleteById?id=${list[sta.index].id}"></a>--%>
+                    <a class="delete" onclick="deleteAjax(this)"></a>
                 </div>
                     <%--                    <header class="card-header ">--%>
                     <%--                        <p class="card-header-title">${account.author}</p>--%>
@@ -173,6 +174,12 @@
         </div>
     </c:forEach>
 
+    <nav class="bd-notice navbar level is-fixed-bottom has-text-centered is-mobile" style="margin-bottom: 0" id="bd">
+        <div class="has-text-centered" style="margin: 0 auto">
+            <strong>
+            </strong>
+        </div>
+    </nav>
 </div>
 
 </body>
