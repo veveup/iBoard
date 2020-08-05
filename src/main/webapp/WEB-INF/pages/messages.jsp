@@ -174,13 +174,18 @@
         </div>
     </c:forEach>
 
-    <nav class="bd-notice navbar level is-fixed-bottom has-text-centered is-mobile" style="margin-bottom: 0" id="bd">
-        <div class="has-text-centered" style="margin: 0 auto">
-            <strong>
-            </strong>
-        </div>
-    </nav>
+        <nav class="bd-notice navbar level is-fixed-bottom has-text-centered is-mobile" style="margin-bottom: 0"
+             id="bd">
+            <div class="has-text-centered" style="margin: 0 auto">
+                <strong>
+                </strong>
+            </div>
+        </nav>
+
+
 </div>
+
+<%@ include file="mouseAction.jsp" %>
 
 </body>
 </html>

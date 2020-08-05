@@ -14,7 +14,7 @@ Demo
 测试服务器：Tomcat9.0.4<br>
 
 
-![img](./img/demo10.png)
+![img](./img/demo11.png)
 
 
 # To-do
@@ -31,6 +31,7 @@ Demo
     - [ ] 评论
  - [ ] 视图
     - [x] Toast提醒
+    - [x] contextMenu
  
  
  # QA
@@ -44,6 +45,7 @@ flush priviliges;
 
 
 # Log
++ **2020.08.05** AjaxEdit 视图/接口 增加了鼠标右键留言的功能菜单 具体功能还未实现
 + **2020.08.03** AjaxDelete 视图/JS方法 Toast底部弹出式提醒 用来显示可以Ajax请求的功能
 + **2020.08.02** AjaxSubmit 视图/JS方法更新 可以支持无限的请求并动态显示
 + **2020.08.01** 增加用户权限 部分功能验证是否有操作权限 通过Ajax调用留言接口 若成功则直接在当前页面新增一条留言 无需刷新 但该新增仅支持显示最后一次Ajax请求

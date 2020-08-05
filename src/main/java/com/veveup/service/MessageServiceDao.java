@@ -19,4 +19,6 @@ public interface MessageServiceDao {
 
     Message getMessageById(Integer id);
 
+    void updateMessage(Message message);
+
 }

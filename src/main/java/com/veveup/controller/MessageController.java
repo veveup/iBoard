@@ -193,5 +193,37 @@ public class MessageController {
         return map;
     }
 
+    @RequestMapping("updateMessage")
+    public @ResponseBody
+    Object updateMessageAjax(@RequestBody Message message, HttpServletRequest request) {
+        HashMap<String, String> map = new HashMap<>();
+        // 鉴权 是否是管理员 或者是自己发送的
+        Object user = request.getSession().getAttribute("user");
+        if (user instanceof User) {
+            // 管理员 直接允许
+            if (((User) user).getLevel().equals(User.Admin)) {
+                messageDao.updateMessage(message);
+                map.put("status", "success");
+                map.put("msg", "使用管理员权限修改内容成功");
+                map.put("time", String.valueOf(new Date().getTime()));
+                return map;
+            } else {
+                Message messageById = messageDao.findMessageById(message.getId());
+                Integer aid = messageById.getAuthorId();
+                if (aid instanceof Integer && aid.equals(((User) user).getUid())) {
+                    messageDao.updateMessage(message);
+                    map.put("msg", "修改自己的留言成功");
+                    map.put("status", "success");
+                    map.put("time", String.valueOf(new Date().getTime()));
+                    return map;
+                }
+            }
+        }
+        map.put("status", "error");
+        map.put("msg", "只能修改自己的留言哦！");
+        map.put("time", String.valueOf(new Date().getTime()));
+        return map;
+    }
+
 
 }

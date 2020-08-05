@@ -1,7 +1,91 @@
 var pathName = window.document.location.pathname;
 var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+//获取可视区宽度
+var winWidth = function () {
+    return document.documentElement.clientWidth || document.body.clientWidth;
+}
+//获取可视区高度
+var winHeight = function () {
+    return document.documentElement.clientHeight || document.body.clientHeight;
+}
 
 
+// 页面加载完成 将AjaxCard隐藏 当请求成功的时候再显示出来
+$(document).ready(function () {
+    // 隐藏用于Ajax动态显示的模版
+    $("#ajaxCard").hide();
+
+    // 隐藏底部Toast模版
+    $("#bd").fadeOut();
+
+    // 注册message窗体的右键行为
+    $(".card").bind("contextmenu", contextmenuActionOnCard);
+    // 默认右键菜单隐藏
+    $("#menu").hide();
+    // 当点到其他地方的时候 将菜单收起来
+    $(document).bind("click", function (e) {
+        $("#menu").hide(200);
+    });
+
+})
+
+// 处理右键在 Message 上的事件
+function contextmenuActionOnCard(e) {
+    console.log(e);
+    var card = $().add(e.toElement);
+    // 一直拿父元素 直到拿到 card 根元素
+    while (card.attr("class") !== "card") {
+        card = card.parent();
+    }
+    ;
+    card.attr("status", "now");
+    console.log(card);
+    mid = $("div[status='now'] span").attr('mid');
+    card.attr("status", "");
+
+    // 获得 mid 然后设置给菜单事件
+    console.log("mid" + mid);
+
+    // 这里很奇怪 Y 是相对整个页面的值
+    var menu = $("#menu");
+    var x = e.clientX;
+    var y = e.pageY;
+
+    // 设置弹出菜单 的事件行为
+    $("#menu #edit").attr("onclick", "edit(" + mid + ")");
+    $("#menu #share").attr("onclick", "share(" + mid + ")");
+
+    // console.log("winWidth:"+winWidth()+"   menuOffserWidtgh:"+menu.width());
+    // 当菜单到达屏幕视图之外的时候
+    if (x >= (winWidth() - menu.width())) {
+        x = winWidth() - menu.width();
+    }
+    // if(y>=(winHeight()-menu.height())){
+    //     y = winHeight() - menu.height();
+    // }
+    // 设置菜单出现的位置
+    menu.css("left", x + 'px');
+    menu.css("top", y + 'px');
+    // 展示菜单 并设置一个展示动画
+    menu.show(200);
+    // 阻止系统默认菜单弹出
+    return false;
+}
+
+function edit(mid) {
+    // 将页面内容放到顶部 编辑框
+
+    // 修改submit 事件内内容 和 href
+
+    // Ajax 请求修改
+
+    // 修改成功/失败 Toast提醒 若成功则将页面上的Card也修改成请求内容 若失败则不变化
+
+    // 将页面 跳转到修改的留言处
+
+}
+
+// 鼠标 移到 点赞图标上的动画
 function hover(element) {
     element.setAttribute('src', projectName + '/img/favorite-24px.svg')
 }
@@ -10,6 +94,7 @@ function unhover(element) {
     element.setAttribute('src', projectName + '/img/favorite_border-24px.svg')
 }
 
+// 点赞的 Ajax 方法
 function likesClick(element) {
     console.log(projectName);
     a = element.children;
@@ -35,7 +120,7 @@ function likesClick(element) {
 }
 
 
-// 请求行为 Ajax
+// 提交留言行为 SubmitAjax
 function submitAjax() {
     // $("#ajaxCard").show(1000);
 
@@ -63,15 +148,6 @@ function submitAjax() {
     return false;
 }
 
-// 页面加载完成 将AjaxCard隐藏 当请求成功的时候再显示出来
-$(document).ready(function () {
-    // 隐藏用于Ajax动态显示的模版
-    $("#ajaxCard").hide();
-
-    // 隐藏底部Toast模版
-    $("#bd").fadeOut();
-
-})
 
 function testButton() {
     var newCard = $('#ajaxCard').clone(true, true).attr('id', 'newCard');
@@ -81,6 +157,7 @@ function testButton() {
     newCard.show(1000);
 }
 
+// submitSuccess 成功后调用的主要方法 处理视图
 function submitSuccess(id) {
     var newCard = $('#ajaxCard').clone(true, true).attr('id', 'newCard');
     console.log(newCard);
@@ -109,6 +186,7 @@ function submitSuccess(id) {
 
 }
 
+// 删除事件的Ajax行为 DeleteSubmit
 function deleteAjax(element) {
     console.log(element);
     // 拿到单条message的根div
@@ -135,6 +213,7 @@ function deleteAjax(element) {
     return false;
 }
 
+// 底部提醒方法 直接调用 并传入参数
 function Toast(msg, duration, status) {
     //status == 1 成功 绿色提醒 默认
     //status == 0 错误 红色提醒 ff6d8e

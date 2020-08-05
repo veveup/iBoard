@@ -30,5 +30,7 @@ public interface MessageDao {
 
     Message findMessageById(Integer id);
 
+    void updateMessage(Message message);
+
 
 }

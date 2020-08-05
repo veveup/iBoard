@@ -36,4 +36,8 @@
         select * from message where id = #{id}
     </select>
 
+    <update id="updateMessage" parameterType="com.veveup.domain.Message">
+        update message set content=#{content},author=#{author} where id=#{id}
+    </update>
+
 </mapper>

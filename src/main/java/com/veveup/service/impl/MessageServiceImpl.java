@@ -46,4 +46,9 @@ public class MessageServiceImpl implements MessageServiceDao {
     public Message getMessageById(Integer id) {
         return messageDao.findMessageById(id);
     }
+
+    @Override
+    public void updateMessage(Message message) {
+        messageDao.updateMessage(message);
+    }
 }
