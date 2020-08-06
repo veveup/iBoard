@@ -16,7 +16,7 @@
     </div>
 
     <div class="panel-block" id="share">
-        <button class="button is-link is-outlined is-fullwidth">
+        <button class="button is-link is-outlined is-fullwidth " disabled>
             分享
         </button>
     </div>

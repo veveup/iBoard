@@ -40,6 +40,7 @@
                     <input class="input" type="text" name="author">
                 </div>
             </div>
+            <input type="hidden" name="id" value="-1">
             <div class="field">
                 <div class="control">
                     <button class="button is-link is-light" type="submit" onclick="submitAjax()" value="Submit">Submit
@@ -118,18 +119,18 @@
     <%--                </div>--%>
     <%--&lt;%&ndash;                ${account.content}:${account.author}<br>&ndash;%&gt;--%>
     <%--            </c:forEach>--%>
-    <c:forEach items="${list}" var="account" varStatus="sta">
-        <div class="column is-full">
-            <div class="card">
+        <c:forEach items="${list}" var="account" varStatus="sta">
+            <div class="column is-full" cardid="${list[sta.index].id}">
+                <div class="card">
 
-                <div class="fluid" style="float: right;margin: 1em;">
-                        <%--                    <a class="delete"--%>
-                        <%--                       href="${pageContext.request.contextPath}/message/deleteById?id=${list[sta.index].id}"></a>--%>
-                    <a class="delete" onclick="deleteAjax(this)"></a>
-                </div>
-                    <%--                    <header class="card-header ">--%>
-                    <%--                        <p class="card-header-title">${account.author}</p>--%>
-                    <%--                    </header>--%>
+                    <div class="fluid" style="float: right;margin: 1em;">
+                            <%--                    <a class="delete"--%>
+                            <%--                       href="${pageContext.request.contextPath}/message/deleteById?id=${list[sta.index].id}"></a>--%>
+                        <a class="delete" onclick="deleteAjax(this)"></a>
+                    </div>
+                        <%--                    <header class="card-header ">--%>
+                        <%--                        <p class="card-header-title">${account.author}</p>--%>
+                        <%--                    </header>--%>
                 <div class="card-content">
                     <div class="content">
                             <%--                                <strong>${account.author}</strong><br>--%>

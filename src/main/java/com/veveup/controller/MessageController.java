@@ -96,6 +96,8 @@ public class MessageController {
         if (user instanceof User) {
             message.setAuthorId(((User) user).getUid());
         }
+        // 不允许指定id
+        message.setId(null);
         messageDao.InsertMessageAndReturnId(message);
         Integer id = message.getId();
 
@@ -104,6 +106,39 @@ public class MessageController {
         map.put("status", "ok");
         map.put("msg", "添加完成");
         map.put("id", String.valueOf(id));
+        map.put("time", String.valueOf(new Date().getTime()));
+        return map;
+    }
+
+
+    @RequestMapping(value = "/updateAjax", method = {RequestMethod.POST})
+    public @ResponseBody
+    Object updateMessagePost(@RequestBody Message message, HttpServletRequest request) {
+        System.out.println("message/update.Ajax run");
+        HashMap<String, String> map = new HashMap<>();
+        // 判断是否由权限
+        Object user = request.getSession().getAttribute("user");
+        map.put("id", String.valueOf(message.getId()));
+        if (user instanceof User) {
+            if (((User) user).getLevel().equals(User.Admin)) {
+                messageDao.updateMessage(message);
+                map.put("status", "success");
+                map.put("msg", "使用管理员权限 修改留言成功");
+                map.put("time", String.valueOf(new Date().getTime()));
+                return map;
+            } else {
+                Message messageById = messageDao.findMessageById(message.getId());
+                if (((User) user).getUid().equals(messageById.getAuthorId())) {
+                    messageDao.updateMessage(message);
+                    map.put("status", "success");
+                    map.put("msg", "修改自己的留言成功");
+                    map.put("time", String.valueOf(new Date().getTime()));
+                    return map;
+                }
+            }
+        }
+        map.put("status", "error");
+        map.put("msg", "没有权限 只允许修改自己的留言");
         map.put("time", String.valueOf(new Date().getTime()));
         return map;
     }

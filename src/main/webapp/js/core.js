@@ -72,17 +72,81 @@ function contextmenuActionOnCard(e) {
     return false;
 }
 
+
 function edit(mid) {
     // 将页面内容放到顶部 编辑框
+    var card = $("div[cardid=" + mid + "]");
+    console.log(card);
+    var content = $("div[cardid=" + mid + "] p").text();
+    var author = $("div[cardid=" + mid + "] strong").text();
+    $('textarea[name="content"]').val(content);
+    $('input[name="author"]').val(author);
 
     // 修改submit 事件内内容 和 href
+    var form = $("#submitform");
+    $("#submitform button[type='submit']").attr('onclick', 'updateAjax()');
+    $("#submitform input[name='id']").attr('value', mid);
 
+
+    scrollOffset($('#submitform').offset());
     // Ajax 请求修改
 
     // 修改成功/失败 Toast提醒 若成功则将页面上的Card也修改成请求内容 若失败则不变化
 
     // 将页面 跳转到修改的留言处
 
+}
+
+function updateAjax() {
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        url: projectName + '/message/updateAjax',
+        data: JSON.stringify({
+            content: $('textarea[name="content"]').val(),
+            author: $('input[name="author"]').val(),
+            id: $('input[name="id"]').val(),
+        }),
+        success: function (result) {
+            console.log(result);
+
+            updateAjaxSuccess(result.id);
+
+            if (result.status == 'success') {
+                Toast(result.msg);
+            } else {
+                Toast(result.msg + ' 但前端已经修改了内容', 3000, 0);
+            }
+        },
+        error: function (result) {
+            console.log("submitAjax 出现错误");
+            console.log(result);
+        }
+    });
+
+}
+
+function updateAjaxSuccess(id) {
+    // 更新前端视图
+    $("div[cardid=" + id + "] p").text($('textarea[name="content"]').val());
+    $("div[cardid=" + id + "] strong").text($('input[name="author"]').val());
+
+    // 提交请求后 清空表单
+    $('textarea[name="content"]').val("");
+    $('input[name="author"]').val("");
+
+    // 跳转到更新过的留言
+    scrollOffset($("div[cardid=" + id + "]").offset());
+
+}
+
+// jQuery 定位让body的scrollTop等于pos的top，就实现了滚动
+function scrollOffset(scroll_offset) {
+    $("body,html").animate({
+        scrollTop: scroll_offset.top - 50
+    }, 100);
 }
 
 // 鼠标 移到 点赞图标上的动画
@@ -165,7 +229,7 @@ function submitSuccess(id) {
     console.log(newCard);
 
     // 设置值 并清除id
-
+    newCard.attr('cardid', id);
     $("#newCard #ajaxConten").text($('textarea[name="content"]').val());
     $("#newCard #ajaxAuthor").text($('input[name="author"]').val());
     $("#newCard #ajaxDate").text('1秒前');
@@ -221,7 +285,7 @@ function Toast(msg, duration, status) {
         console.log("Hello");
         $("#bd").css("background-color", "#ff6d8e");
     }
-    duration = isNaN(duration) ? 3000 : duration;
+    duration = isNaN(duration) ? 5000 : duration;
     $("#bd strong").text(msg);
     $("#bd").fadeIn(500);
     setTimeout(function () {

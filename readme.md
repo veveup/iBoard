@@ -15,6 +15,7 @@ Demo
 
 
 ![img](./img/demo11.png)
+![img](./img/demo12.png)
 
 
 # To-do
@@ -23,7 +24,7 @@ Demo
     - [x] 权限管理
  - [ ] 留言修改和删除
     - [x] 删除
-    - [ ] 修改
+    - [x] 修改
     - [x] Ajax发送留言
     - [x] Ajax删除留言
  - [ ] 点赞 评论系统
@@ -45,6 +46,7 @@ flush priviliges;
 
 
 # Log
++ **2020.08.06** AjaxEdit 具体实现方法 视图更新 鉴权
 + **2020.08.05** AjaxEdit 视图/接口 增加了鼠标右键留言的功能菜单 具体功能还未实现
 + **2020.08.03** AjaxDelete 视图/JS方法 Toast底部弹出式提醒 用来显示可以Ajax请求的功能
 + **2020.08.02** AjaxSubmit 视图/JS方法更新 可以支持无限的请求并动态显示
